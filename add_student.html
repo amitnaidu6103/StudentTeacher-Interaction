@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R. J. College LMS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="./css/style.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="./assets/Blue Elegant Concept Foundation Logo.png" />
+</head>
+
+<body style="background-image: url('./assets/Classroom\ \(2\).jpg'); background-size: cover;">
+  <header class="bg-primary">
+    <h1>6427_R. J. College LMS</h1>
+  </header>
+  <section class="opacity35">
+  <!-- Add Students Section -->
+  <div class="mt-4">
+    <h2>Add Students</h2>
+    <label for="fileInput">Upload Excel File:</label>
+    <input type="file" id="fileInput" accept=".xlsx">
+    <button type="button" class="btn btn-primary" onclick="addStudentManually()">Add Student Manually</button>
+  </div>
+
+  <!-- Students Table -->
+  <div class="mt-4">
+    <h2>Students Table</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Student ID</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTableBody">
+        <!-- Student data will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary fixed-bottom">
+    <div class="text text-white">
+      <span>&#169;Amitkumar Naidu</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="./js/script.js"></script>
+<script>
+    function addStudentManually() {
+      // Implement logic to add student manually and update the table
+      var studentID = prompt("Enter Student ID:");
+      var studentName = prompt("Enter Student Name:");
+      var studentEmail = prompt("Enter Student Email:");
+
+      // Validate input (you may want to add more validation)
+      if (!studentID || !studentName || !studentEmail) {
+        alert("Please provide valid information for the student.");
+        return;
+      }
+
+      // Add the student data to the table
+      var studentsTableBody = document.getElementById("studentsTableBody");
+      var newRow = studentsTableBody.insertRow();
+      newRow.innerHTML = `<td>${studentID}</td><td>${studentName}</td><td>${studentEmail}</td>`;
+    }
+
+    // Additional logic for handling file input and parsing Excel data should be implemented
+    document.getElementById("fileInput").addEventListener("change", handleFileSelect);
+
+    function handleFileSelect(event) {
+      var file = event.target.files[0];
+
+      if (file) {
+        // Implement logic to handle the uploaded Excel file and update the table
+        // You may need a library like SheetJS (https://sheetjs.com/) for parsing Excel files
+        alert("File Upload Logic Not Implemented");
+      }
+    }
+</script>

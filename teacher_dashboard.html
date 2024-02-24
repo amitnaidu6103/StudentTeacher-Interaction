@@ -11,49 +11,162 @@
     <link rel="icon" type="image/x-icon" href="./assets/Blue Elegant Concept Foundation Logo.png" />
 </head>
 
-<body>
+<body style="background-image: url('./assets/Classroom\ \(2\).jpg'); background-size: cover;">
     <header class="bg-primary">
         <h1>Teacher Dashboard</h1>
     </header>
 
-    <section class="dashboard-content">
-        <div class="container">
-            <!-- Post Material Form -->
-            <form id="postMaterialForm">
-                <h2>Post Material</h2>
-                <div class="form-floating mb-3">
-                    <textarea class="form-control" id="materialContent" placeholder="Write your material here"
-                        required></textarea>
-                    <label for="materialContent">Material Content</label>
+    <!-- Notification Modal -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="postMaterial()">Post Material</button>
-            </form>
-
-            <!-- Post Assignment Form -->
-            <form id="postAssignmentForm">
-                <h2>Post Assignment</h2>
-                <div class="form-floating mb-3">
-                    <textarea class="form-control" id="assignmentContent" placeholder="Write your assignment here"
-                        required></textarea>
-                    <label for="assignmentContent">Assignment Content</label>
+                <div class="modal-body">
+                    <p id="notificationMessage"></p>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="postAssignment()">Post Assignment</button>
-            </form>
-
-            <!-- Review Scores Section -->
-            <div id="reviewScoresSection">
-                <h2>Review Scores</h2>
-                <!-- Display scores and assignments to review -->
-                <ul id="assignmentList">
-                    <!-- Assignments and scores will be dynamically added here -->
-                </ul>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
+    </div>
+
+
+    <!-- Teacher Dashboard Content -->
+    <section id="teacher-dashboard" class="container-lg pb-3 opacity35">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mb-4">Teacher Dashboard</h2>
+                <ul class="nav nav-tabs" id="teacherTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="teacher-materials-tab" data-bs-toggle="tab"
+                            href="#teacher-materials" role="tab" aria-controls="teacher-materials"
+                            aria-selected="true">Materials</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="teacher-assignments-tab" data-bs-toggle="tab"
+                            href="#teacher-assignments" role="tab" aria-controls="teacher-assignments"
+                            aria-selected="false">Assignments</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="teacher-scores-tab" data-bs-toggle="tab" href="#teacher-scores"
+                            role="tab" aria-controls="teacher-scores" aria-selected="false">Review Scores</a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-3">
+                    <!-- Teacher Materials Tab -->
+                    <div class="tab-pane fade show active" id="teacher-materials" role="tabpanel"
+                        aria-labelledby="teacher-materials-tab">
+                        <form id="postMaterialForm">
+                            <h2>Post Material</h2>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="material_title" placeholder="Material Title"
+                                    required>
+                                <label for="material_title">Material Title</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="materialType" required>
+                                    <option selected disabled>Select type</option>
+                                    <option value="file">File</option>
+                                    <option value="link">Link</option>
+                                </select>
+                                <label for="materialType">Select Material Type</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="materialContent"
+                                    placeholder="Material Content" required>
+                                <label for="materialContent">Material Content</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="file" class="form-control" id="materialFile"
+                                    accept=".pdf, .doc, .docx, .ppt, .pptx" multiple>
+                                <label for="materialFile">Upload File</label>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="postMaterial()">Post
+                                Material</button>
+                        </form>
+                    </div>
+                    <!-- Teacher Assignments Tab -->
+                    <div class="tab-pane fade" id="teacher-assignments" role="tabpanel"
+                        aria-labelledby="teacher-assignments-tab">
+                        <form id="postAssignmentForm">
+                            <h2>Post Assignment</h2>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="assignment_title"
+                                    placeholder="Assignment Title" required>
+                                <label for="assignment_title">Assignment Title</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="assignmentType" required>
+                                    <option selected disabled>Select type</option>
+                                    <option value="file">File</option>
+                                    <option value="link">Link</option>
+                                </select>
+                                <label for="assignmentType">Select Assignment Type</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="assignmentContent"
+                                    placeholder="Assignment Content" required>
+                                <label for="assignmentContent">Assignment Content</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="file" class="form-control" id="assignmentFile"
+                                    accept=".pdf, .doc, .docx, .ppt, .pptx">
+                                <label for="assignmentFile">Upload File</label>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="postAssignment()">Post
+                                Assignment</button>
+                        </form>
+                    </div>
+                    <!-- Teacher Review Scores Tab -->
+                    <div class="tab-pane fade" id="teacher-scores" role="tabpanel" aria-labelledby="teacher-scores-tab">
+                        <h2>Review Scores</h2>
+                        <!-- Display scores and assignments to review -->
+                        <ul id="assignmentList">
+                            <!-- Add Students Details with Section -->
+                            <div class="mt-4">
+                                <label for="fileInput">Upload Excel File:</label>
+                                <input type="file" id="fileInput" accept=".xlsx">
+                            </div>
+
+                            <!-- Students Table -->
+                            <div class="mt-4">
+                                <h2>Students Score</h2>
+                                <button type="button" class="btn btn-primary" onclick="addStudentManually()">Add Student
+                                    Scores</button>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Student Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentsTableBody">
+                                        <!-- Student data will be dynamically added here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Button to redirect to add_student.html -->
+        <!-- <div class="mt-3">
+            <a href="add_student.html" class="btn btn-primary">Add Students</a>
+        </div> -->
     </section>
 
+    <!-- Footer -->
     <footer class="bg-primary fixed-bottom">
         <div class="text text-white">
-            <span>&#169;Your Name</span>
+            <span>&#169;Amitkumar Naidu</span>
         </div>
     </footer>
 
@@ -63,29 +176,68 @@
     <script src="./js/script.js"></script>
 
     <script>
-        // Placeholder functions for posting material and assignments
+        // // Placeholder functions for posting material and assignments
         function postMaterial() {
             // Implement server-side logic to post material
             console.log('Material Posted:', document.getElementById('materialContent').value);
+
+            // Show notification modal
+            showNotificationModal('Material posted successfully!');
         }
 
         function postAssignment() {
             // Implement server-side logic to post assignments
             console.log('Assignment Posted:', document.getElementById('assignmentContent').value);
+
+            // Show notification modal
+            showNotificationModal('Assignment posted successfully!');
         }
 
-        // Placeholder function to load assignments and scores
-        function loadAssignmentsAndScores() {
-            // Implement server-side logic to fetch assignments and scores
-            // Display assignments and scores in the assignmentList ul
-            var assignmentList = document.getElementById('assignmentList');
-            assignmentList.innerHTML = '<li>Assignment 1 - Score: 90%</li><li>Assignment 2 - Score: 85%</li>';
+        // Function to show notification modal
+        function showNotificationModal(message) {
+            var notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'), {
+                keyboard: false
+            });
+
+            // Set notification message
+            document.getElementById('notificationMessage').textContent = message;
+
+            // Show the modal
+            notificationModal.show();
         }
 
-        // Load assignments and scores when the page is loaded
-        window.onload = function () {
-            loadAssignmentsAndScores();
-        };
+        // Adding Students Score
+        function addStudentManually() {
+            // Implement logic to add student manually and update the table
+            var studentID = prompt("Enter Student ID:");
+            var studentName = prompt("Enter Student Name:");
+            var studentEmail = prompt("Enter Student Email:");
+            var studentScore = prompt("Enter Student Score:");
+
+            // Validate input (you may want to add more validation)
+            if (!studentID || !studentName || !studentEmail || !studentScore) {
+                alert("Please provide valid information for the student.");
+                return;
+            }
+
+            // Add the student data to the table
+            var studentsTableBody = document.getElementById("studentsTableBody");
+            var newRow = studentsTableBody.insertRow();
+            newRow.innerHTML = `<td>${studentID}</td><td>${studentName}</td><td>${studentEmail}</td><td>${studentScore}</td>`;
+        }
+
+        // Additional logic for handling file input and parsing Excel data should be implemented
+        document.getElementById("fileInput").addEventListener("change", handleFileSelect);
+
+        function handleFileSelect(event) {
+            var file = event.target.files[0];
+
+            if (file) {
+                // Implement logic to handle the uploaded Excel file and update the table
+                // You may need a library like SheetJS (https://sheetjs.com/) for parsing Excel files
+                alert("File Upload Logic Not Implemented");
+            }
+        }
     </script>
 </body>
 
